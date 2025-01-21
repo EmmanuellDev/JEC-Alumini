@@ -40,6 +40,19 @@ const AlumniSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Basic email validation
+    if (!formData.email) {
+      alert("Email is required.");
+      return;
+    }
+
+    // Email regex validation (optional but recommended)
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPattern.test(formData.email)) {
+      alert("Please enter a valid email.");
+      return;
+    }
+
     const formToSend = new FormData();
     // Append all the form data
     formToSend.append("email", formData.email);

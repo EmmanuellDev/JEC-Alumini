@@ -19,34 +19,35 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
 
     const { email, password } = formData;
 
-    if (email && password) {
-      try {
-        const response = await fetch("http://localhost:5000/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        });
+    if (!email || !password) {
+      setErrorMessage("Please fill in all fields");
+      return;
+    }
 
-        const data = await response.json();
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-        if (response.ok) {
-          // Store the token (use context or localStorage)
-          localStorage.setItem("authToken", data.token);
-          navigate("/dashboard");
-        } else {
-          setErrorMessage(data.message);
-        }
-      } catch (error) {
-        console.error("Login error:", error);
-        setErrorMessage("An error occurred. Please try again.");
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        navigate("/dashboard");
+      } else {
+        setErrorMessage(data.message || "Login failed");
       }
-    } else {
-      setErrorMessage("Please fill out all fields.");
+    } catch (error) {
+      console.error("Login error:", error);
+      setErrorMessage("An error occurred during login");
     }
   };
 
