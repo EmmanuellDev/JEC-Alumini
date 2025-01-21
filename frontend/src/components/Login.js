@@ -17,22 +17,39 @@ const Login = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { email, password, regNumber } = formData;
+    const { email, password } = formData;
 
-    // Add your validation and authentication logic here
-    if (email && password && regNumber) {
-      // Proceed with login
-      console.log("Logged in successfully");
+    if (email && password) {
+      try {
+        const response = await fetch("http://localhost:5000/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
 
-      // Redirect after successful login (you can modify this based on your app's flow)
-      navigate("/dashboard");
+        const data = await response.json();
+
+        if (response.ok) {
+          // Store the token (use context or localStorage)
+          localStorage.setItem("authToken", data.token);
+          navigate("/dashboard");
+        } else {
+          setErrorMessage(data.message);
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+        setErrorMessage("An error occurred. Please try again.");
+      }
     } else {
-      setErrorMessage("Please fill out all fields correctly.");
+      setErrorMessage("Please fill out all fields.");
     }
   };
+
 
   return (
     <div
