@@ -88,6 +88,7 @@ const AlumniSignup = () => {
     const { branch, gradYear, convocationYear, regNumber, employed, photo } = formData;
     if (branch && gradYear && convocationYear && regNumber && employed && photo) {
       alert("Registration Successful");
+      navigate("/dashboard");
     } else {
       alert("Failed to Register. Please complete all fields.");
     }
