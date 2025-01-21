@@ -169,7 +169,8 @@ app.post("/api/auth/login", async (req, res) => {
       { userId: user._id, email: user.email },
       process.env.JWT_SECRET, // Make sure it's properly defined in your .env file
       { expiresIn: "1h" } // Token expires in 1 hour
-    );
+      );
+      console.log("Generated Token:", token);
 
     // Respond with the token
     res.status(200).json({
@@ -192,10 +193,15 @@ const authenticateJWT = (req, res, next) => {
       .json({ message: "Access denied. No token provided." });
   }
 
+  console.log("Token:", token); // Log the token to check
+
+  // Verify the token and decode the user
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(403).json({ message: "Invalid or expired token." });
     }
+
+    console.log("Decoded user:", user); // Log the decoded user info for debugging
     req.user = user;
     next();
   });
@@ -207,6 +213,34 @@ app.get("/api/protected", authenticateJWT, (req, res) => {
     .status(200)
     .json({ message: "This is a protected route.", user: req.user });
 });
+
+// Route to get the user's dashboard details
+app.get("/api/dashboard", authenticateJWT, async (req, res) => {
+  try {
+    const userId = req.user.userId; // Extract the userId from the decoded JWT token
+
+    // Fetch the user details from the database using the userId
+    const user = await Alumni.findById(userId);
+
+    if (!user) {
+      // If no user is found, return a 404 error
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Send back only the required fields (name, registration number, and mobile)
+    res.status(200).json({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      regNumber: user.regNumber,
+      mobile: user.mobile,
+    });
+  } catch (error) {
+    // Handle any server errors during the process
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ message: "Internal Server Error." });
+  }
+});
+
 
 // Static folder for serving uploaded files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
