@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import "tailwindcss/tailwind.css";
+import STD from "../imgs/student.png";
+import JEC from "../imgs/jec-logo.png";
+import BG from "../imgs/jec-bg.jpeg";
 
-const SignupPage = () => {
+const AlumniSignup = () => {
   const [session, setSession] = useState(1);
   const [formData, setFormData] = useState({
     email: "",
@@ -17,262 +19,277 @@ const SignupPage = () => {
     password: "",
     confirmPassword: "",
     branch: "",
-    graduationYear: "",
+    gradYear: "",
     convocationYear: "",
-    universityRegNo: "",
+    regNumber: "",
     employed: "",
     photo: null,
   });
-  const [captcha, setCaptcha] = useState(generateCaptcha());
-  const [notification, setNotification] = useState("");
+  const [captchaGenerated, setCaptchaGenerated] = useState(generateCaptcha());
+  const [captchaStatus, setCaptchaStatus] = useState("");
 
   function generateCaptcha() {
     return Math.random().toString(36).substring(2, 8).toUpperCase();
   }
+
+  const handleCaptchaCheck = () => {
+    if (formData.enteredCaptcha === captchaGenerated) {
+      setCaptchaStatus("Captcha Matched");
+    } else {
+      setCaptchaStatus("Captcha Incorrect");
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleLocationChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      location: { ...prev.location, [name]: value },
-    }));
-  };
-
-  const handleFileChange = (e) => {
-    setFormData((prev) => ({ ...prev, photo: e.target.files[0] }));
-  };
-
-  const validateSession1 = () => {
-    return (
-      formData.email &&
-      formData.email === formData.confirmEmail &&
-      formData.enteredCaptcha === captcha
-    );
-  };
-
-  const validateSession2 = () => {
-    const { firstName, lastName, gender, dob, mobile, location, password, confirmPassword } = formData;
-    return (
-      firstName &&
-      lastName &&
-      gender &&
-      dob &&
-      mobile &&
-      location.country &&
-      location.state &&
-      location.city &&
-      password &&
-      password === confirmPassword
-    );
-  };
-
-  const validateSession3 = () => {
-    const { branch, graduationYear, convocationYear, universityRegNo, employed, photo } = formData;
-    return branch && graduationYear && convocationYear && universityRegNo && employed && photo;
-  };
-
   const handleNext = () => {
-    if ((session === 1 && validateSession1()) || (session === 2 && validateSession2())) {
-      setSession(session + 1);
-    } else {
-      alert("Please fill all required fields correctly before proceeding.");
+    if (session === 1) {
+      if (
+        formData.email &&
+        formData.confirmEmail &&
+        formData.enteredCaptcha === captchaGenerated
+      ) {
+        setSession(2);
+      } else {
+        alert("Please complete all fields correctly.");
+      }
+    } else if (session === 2) {
+      const { firstName, lastName, gender, dob, mobile, location, password, confirmPassword } = formData;
+      if (
+        firstName &&
+        lastName &&
+        gender &&
+        dob &&
+        mobile &&
+        location.country &&
+        location.state &&
+        location.city &&
+        password &&
+        password === confirmPassword
+      ) {
+        setSession(3);
+      } else {
+        alert("Please complete all fields correctly.");
+      }
     }
   };
 
   const handleSubmit = () => {
-    if (validateSession3()) {
-      setNotification("Registration Successful");
+    const { branch, gradYear, convocationYear, regNumber, employed, photo } = formData;
+    if (branch && gradYear && convocationYear && regNumber && employed && photo) {
+      alert("Registration Successful");
     } else {
-      setNotification("Failed to Register");
+      alert("Failed to Register. Please complete all fields.");
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-2xl w-full">
-        <h1 className="text-2xl font-bold text-center mb-6">Alumni Signup</h1>
+  const inputClassName = "w-full mb-4 p-3 border-2 border-black rounded bg-white/60 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500";
+  const selectClassName = "w-full p-3 border-2 border-black rounded bg-white/60 backdrop-blur-sm mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500";
+  const buttonClassName = "bg-gradient-to-r from-white via-blue-400 to-purple-600 hover:border-2 hover:border-black pb-2 text-black px-6 py-3 rounded w-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500";
 
-        {session === 1 && (
-          <div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Email</label>
+  return (
+    <div
+      className="min-h-screen w-full fixed inset-0 bg-cover bg-center bg-no-repeat flex items-center justify-center p-6"
+      style={{
+        backgroundImage: `url(${BG})`,
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Blur overlay */}
+      <div className="absolute inset-0 backdrop-blur-sm"></div>
+      
+      <div className="relative bg-white/40 backdrop-blur-md rounded-lg shadow-lg w-full max-w-6xl flex flex-col overflow-hidden">
+        {/* Header with JEC logo spanning full width */}
+        <div className="w-full bg-white/70 px-0 shadow-sm">
+          <img 
+            src={JEC} 
+            alt="JEC Logo" 
+            className="w-full h-30 object-cover"
+            style={{
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+          />
+        </div>
+
+        {/* Content container */}
+        <div className="flex flex-1">
+          {/* Left section with student image */}
+          <div className="w-2/5 p-8 flex flex-col items-center justify-center bg-white/30">
+            <img src={STD} alt="Student" className="w-full max-w-md object-contain" />
+          </div>
+
+          {/* Right section with form */}
+          <div className="w-3/5 bg-white/30 backdrop-blur-sm overflow-y-auto max-h-[calc(100vh-8rem)]">
+            <div className="p-8">
+          
+          {session === 1 && (
+                <div className="space-y-4 h-[420px]">
+                  <h2 className="text-2xl font-bold mb-6 text-gray-800">Session 1: Email Verification</h2>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                placeholder="Email"
+                className={inputClassName}
               />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Confirm Email</label>
               <input
                 type="email"
                 name="confirmEmail"
                 value={formData.confirmEmail}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                placeholder="Confirm Email"
+                className={inputClassName}
               />
-            </div>
-            <div className="mb-4 flex items-center">
+              <div className="flex items-center mb-4">
+                <span className="p-3 border rounded bg-gray-100/90 mr-4">{captchaGenerated}</span>
+                <button
+                  onClick={() => setCaptchaGenerated(generateCaptcha())}
+                  className="bg-gradient-to-r from-blue-400 to-purple-600 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors"
+                >
+                  Refresh
+                </button>
+              </div>
               <input
                 type="text"
                 name="enteredCaptcha"
-                placeholder="Enter Captcha"
                 value={formData.enteredCaptcha}
                 onChange={handleInputChange}
-                className="w-2/3 p-2 border rounded mr-2"
+                placeholder="Enter Captcha"
+                className={inputClassName}
               />
-              <span className="text-lg font-bold">{captcha}</span>
               <button
-                onClick={() => setCaptcha(generateCaptcha())}
-                className="ml-2 text-blue-500 hover:underline"
+                onClick={handleCaptchaCheck}
+                className="bg-gradient-to-r from-blue-400 to-purple-600 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors"
               >
-                Refresh
+                Check Captcha
+              </button>
+              {captchaStatus && <p className="mt-2 text-sm text-green-500">{captchaStatus}</p>}
+              <button onClick={handleNext} className={buttonClassName}>
+                Next
               </button>
             </div>
-            <button
-              onClick={handleNext}
-              className="w-full bg-teal-500 text-white py-2 rounded mt-4 hover:bg-teal-600"
-            >
-              Next
-            </button>
-          </div>
-        )}
+          )}
 
-        {session === 2 && (
-          <div>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <label className="block text-gray-700">First Name</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded"
-                />
-              </div>
-              <div>
-                <label className="block text-gray-700">Last Name</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded"
-                />
-              </div>
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Gender</label>
+          {session === 2 && (
+                <div className="space-y-4 h-[420px]">
+                <h2 className="text-2xl font-bold mb-6 text-gray-800">Session 2: Personal Details</h2>
+
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                placeholder="First Name"
+                className={inputClassName}
+              />
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleInputChange}
+                placeholder="Last Name"
+                className={inputClassName}
+              />
               <select
                 name="gender"
                 value={formData.gender}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                className={selectClassName}
               >
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
               </select>
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Date of Birth</label>
               <input
                 type="date"
                 name="dob"
                 value={formData.dob}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                className={inputClassName}
               />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Mobile</label>
               <input
-                type="tel"
+                type="text"
                 name="mobile"
                 value={formData.mobile}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                placeholder="Mobile Number"
+                className={inputClassName}
               />
-            </div>
-            <div className="mb-4 grid grid-cols-3 gap-4">
-              <div>
-                <label className="block text-gray-700">Country</label>
-                <input
-                  type="text"
-                  name="country"
-                  value={formData.location.country}
-                  onChange={handleLocationChange}
-                  className="w-full p-2 border rounded"
-                />
-              </div>
-              <div>
-                <label className="block text-gray-700">State</label>
-                <input
-                  type="text"
-                  name="state"
-                  value={formData.location.state}
-                  onChange={handleLocationChange}
-                  className="w-full p-2 border rounded"
-                />
-              </div>
-              <div>
-                <label className="block text-gray-700">City</label>
-                <input
-                  type="text"
-                  name="city"
-                  value={formData.location.city}
-                  onChange={handleLocationChange}
-                  className="w-full p-2 border rounded"
-                />
-              </div>
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Password</label>
+              <input
+                type="text"
+                name="country"
+                value={formData.location.country}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    location: { ...prev.location, country: e.target.value },
+                  }))
+                }
+                placeholder="Country"
+                className={inputClassName}
+              />
+              <input
+                type="text"
+                name="state"
+                value={formData.location.state}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    location: { ...prev.location, state: e.target.value },
+                  }))
+                }
+                placeholder="State"
+                className={inputClassName}
+              />
+              <input
+                type="text"
+                name="city"
+                value={formData.location.city}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    location: { ...prev.location, city: e.target.value },
+                  }))
+                }
+                placeholder="City"
+                className={inputClassName}
+              />
               <input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                placeholder="Password"
+                className={inputClassName}
               />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Confirm Password</label>
               <input
                 type="password"
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                placeholder="Confirm Password"
+                className={inputClassName}
               />
+              <button onClick={handleNext} className={buttonClassName}>
+                Next
+              </button>
             </div>
-            <button
-              onClick={handleNext}
-              className="w-full bg-teal-500 text-white py-2 rounded mt-4 hover:bg-teal-600"
-            >
-              Next
-            </button>
-          </div>
-        )}
+          )}
 
-        {session === 3 && (
-          <div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Select Branch</label>
+          {session === 3 && (
+                <div className="space-y-4 h-[420px]">
+                  <h2 className="text-2xl font-bold mb-6 text-gray-800">Session 3: Academic Details</h2>
               <select
                 name="branch"
                 value={formData.branch}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                className={selectClassName}
               >
                 <option value="">Select Branch</option>
                 <option value="CSE">CSE</option>
@@ -280,78 +297,68 @@ const SignupPage = () => {
                 <option value="EEE">EEE</option>
                 <option value="Mech">Mech</option>
               </select>
-            </div>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <label className="block text-gray-700">Graduation Year</label>
-                <input
-                  type="number"
-                  name="graduationYear"
-                  value={formData.graduationYear}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded"
-                />
-              </div>
-              <div>
-                <label className="block text-gray-700">Convocation Year</label>
-                <input
-                  type="number"
-                  name="convocationYear"
-                  value={formData.convocationYear}
-                  onChange={handleInputChange}
-                  className="w-full p-2 border rounded"
-                />
-              </div>
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">University Register Number</label>
               <input
                 type="text"
-                name="universityRegNo"
-                value={formData.universityRegNo}
+                name="gradYear"
+                value={formData.gradYear}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                placeholder="Graduation Year"
+                className={inputClassName}
               />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Are you presently employed?</label>
+              <input
+                type="text"
+                name="convocationYear"
+                value={formData.convocationYear}
+                onChange={handleInputChange}
+                placeholder="Convocation Year"
+                className={inputClassName}
+              />
+              <input
+                type="text"
+                name="regNumber"
+                value={formData.regNumber}
+                onChange={handleInputChange}
+                placeholder="University Register Number"
+                className={inputClassName}
+              />
               <select
                 name="employed"
                 value={formData.employed}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                className={selectClassName}
               >
-                <option value="">Select</option>
+                <option value="">Are you presently employed?</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Upload Photo
+                </label>
+                <input
+                  type="file"
+                  name="photo"
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, photo: e.target.files[0] }))
+                  }
+                  className="w-full p-2 border rounded bg-white/80 backdrop-blur-sm"
+                  accept="image/*"
+                />
+              </div>
+              <button
+                onClick={handleSubmit}
+                className="bg-gradient-to-r from-white via-blue-400 to-purple-600 border-2 border-black  hover:bg-green-600 text-black px-6 py-3 mt-6 rounded w-full transition-colors focus:outline-none focus:ring-2 focus:ring-green-500"
+              >
+                Submit
+              </button>
             </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Upload Photo</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                className="w-full p-2 border rounded"
-              />
-            </div>
-            <button
-              onClick={handleSubmit}
-              className="w-full bg-teal-500 text-white py-2 rounded mt-4 hover:bg-teal-600"
-            >
-              Submit
-            </button>
+          )}
           </div>
-        )}
-
-        {notification && (
-          <div className="mt-4 text-center text-lg font-semibold text-green-600">
-            {notification}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
 };
 
-export default SignupPage;
+export default AlumniSignup;
