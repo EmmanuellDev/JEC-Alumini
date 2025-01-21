@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import STD from "../imgs/student.png";
+import { useNavigate } from 'react-router-dom';
+import STD from "../imgs/student.jpg";
 import JEC from "../imgs/jec-logo.png";
 import BG from "../imgs/jec-bg.jpeg";
 
 const AlumniSignup = () => {
   const [session, setSession] = useState(1);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     confirmEmail: "",
@@ -43,6 +46,10 @@ const AlumniSignup = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const redirectToLogin = () => {
+    navigate('/l');  // Redirects to the login page
   };
 
   const handleNext = () => {
@@ -88,7 +95,7 @@ const AlumniSignup = () => {
 
   const inputClassName = "w-full mb-4 p-3 border-2 border-black rounded bg-white/60 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500";
   const selectClassName = "w-full p-3 border-2 border-black rounded bg-white/60 backdrop-blur-sm mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500";
-  const buttonClassName = "bg-gradient-to-r from-white via-blue-400 to-purple-600 hover:border-2 hover:border-black pb-2 text-black px-6 py-3 rounded w-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500";
+  const buttonClassName = "bg-gradient-to-r from-white via-blue-400 to-purple-600 hover:border-2 hover:bg-gradient-to-r hover:from-purple-600 hover:via-blue-400 hover:to-white border-2 border-black hover:border-black pb-2 text-black px-6 py-3 rounded w-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500";
 
   return (
     <div
@@ -103,7 +110,7 @@ const AlumniSignup = () => {
       
       <div className="relative bg-white/40 backdrop-blur-md rounded-lg shadow-lg w-full max-w-6xl flex flex-col overflow-hidden">
         {/* Header with JEC logo spanning full width */}
-        <div className="w-full bg-white/70 px-0 shadow-sm">
+        <div className="w-full bg-white/40 px-0 shadow-sm">
           <img 
             src={JEC} 
             alt="JEC Logo" 
@@ -149,7 +156,7 @@ const AlumniSignup = () => {
                 <span className="p-3 border rounded bg-gray-100/90 mr-4">{captchaGenerated}</span>
                 <button
                   onClick={() => setCaptchaGenerated(generateCaptcha())}
-                  className="bg-gradient-to-r from-blue-400 to-purple-600 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors"
+                  className="bg-gradient-to-r from-blue-400 to-purple-600 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-400 text-white px-4 py-2 rounded transition-colors"
                 >
                   Refresh
                 </button>
@@ -164,7 +171,7 @@ const AlumniSignup = () => {
               />
               <button
                 onClick={handleCaptchaCheck}
-                className="bg-gradient-to-r from-blue-400 to-purple-600 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors"
+                className="bg-gradient-to-r from-blue-400 to-purple-600 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-400 text-white px-4 py-2 rounded transition-colors"
               >
                 Check Captcha
               </button>
@@ -172,6 +179,8 @@ const AlumniSignup = () => {
               <button onClick={handleNext} className={buttonClassName}>
                 Next
               </button>
+
+              <p>Already a member? <button onClick={redirectToLogin} className="text-blue-500 underline">Login</button></p>
             </div>
           )}
 
