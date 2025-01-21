@@ -6,10 +6,10 @@ import Login from './components/Login';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <Routes>
-          <Route path="/" element={<Signup />} />
-          <Route path="/l" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>

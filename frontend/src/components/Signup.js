@@ -49,7 +49,7 @@ const AlumniSignup = () => {
   };
 
   const redirectToLogin = () => {
-    navigate('/l');  // Redirects to the login page
+    navigate('/login');  // Redirects to the login page
   };
 
   const handleNext = () => {
@@ -99,7 +99,7 @@ const AlumniSignup = () => {
 
   return (
     <div
-      className="min-h-screen w-full fixed inset-0 bg-cover bg-center bg-no-repeat flex items-center justify-center p-6"
+      className="fixed inset-0 flex items-center justify-center w-full min-h-screen p-6 bg-center bg-no-repeat bg-cover"
       style={{
         backgroundImage: `url(${BG})`,
         backgroundAttachment: 'fixed'
@@ -108,13 +108,13 @@ const AlumniSignup = () => {
       {/* Blur overlay */}
       <div className="absolute inset-0 backdrop-blur-sm"></div>
       
-      <div className="relative bg-white/40 backdrop-blur-md rounded-lg shadow-lg w-full max-w-6xl flex flex-col overflow-hidden">
+      <div className="relative flex flex-col w-full max-w-6xl overflow-hidden rounded-lg shadow-lg bg-white/40 backdrop-blur-md">
         {/* Header with JEC logo spanning full width */}
-        <div className="w-full bg-white/40 px-0 shadow-sm">
+        <div className="w-full px-0 shadow-sm bg-white/40">
           <img 
             src={JEC} 
             alt="JEC Logo" 
-            className="w-full h-30 object-cover"
+            className="object-cover w-full h-30"
             style={{
               objectFit: 'cover',
               objectPosition: 'center'
@@ -125,8 +125,8 @@ const AlumniSignup = () => {
         {/* Content container */}
         <div className="flex flex-1">
           {/* Left section with student image */}
-          <div className="w-2/5 p-8 flex flex-col items-center justify-center bg-white/30">
-            <img src={STD} alt="Student" className="w-full max-w-md object-contain" />
+          <div className="flex flex-col items-center justify-center w-2/5 p-8 bg-white/30">
+            <img src={STD} alt="Student" className="object-contain w-full max-w-md" />
           </div>
 
           {/* Right section with form */}
@@ -135,7 +135,7 @@ const AlumniSignup = () => {
           
           {session === 1 && (
                 <div className="space-y-4 h-[420px]">
-                  <h2 className="text-2xl font-bold mb-6 text-gray-800">Session 1: Email Verification</h2>
+                  <h2 className="mb-6 text-2xl font-bold text-gray-800">Session 1: Email Verification</h2>
               <input
                 type="email"
                 name="email"
@@ -153,10 +153,10 @@ const AlumniSignup = () => {
                 className={inputClassName}
               />
               <div className="flex items-center mb-4">
-                <span className="p-3 border rounded bg-gray-100/90 mr-4">{captchaGenerated}</span>
+                <span className="p-3 mr-4 border rounded bg-gray-100/90">{captchaGenerated}</span>
                 <button
                   onClick={() => setCaptchaGenerated(generateCaptcha())}
-                  className="bg-gradient-to-r from-blue-400 to-purple-600 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-400 text-white px-4 py-2 rounded transition-colors"
+                  className="px-4 py-2 text-white transition-colors rounded bg-gradient-to-r from-blue-400 to-purple-600 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-400"
                 >
                   Refresh
                 </button>
@@ -171,7 +171,7 @@ const AlumniSignup = () => {
               />
               <button
                 onClick={handleCaptchaCheck}
-                className="bg-gradient-to-r from-blue-400 to-purple-600 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-400 text-white px-4 py-2 rounded transition-colors"
+                className="px-4 py-2 text-white transition-colors rounded bg-gradient-to-r from-blue-400 to-purple-600 hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-400"
               >
                 Check Captcha
               </button>
@@ -186,7 +186,7 @@ const AlumniSignup = () => {
 
           {session === 2 && (
                 <div className="space-y-4 h-[420px]">
-                <h2 className="text-2xl font-bold mb-6 text-gray-800">Session 2: Personal Details</h2>
+                <h2 className="mb-6 text-2xl font-bold text-gray-800">Session 2: Personal Details</h2>
 
               <input
                 type="text"
@@ -293,7 +293,7 @@ const AlumniSignup = () => {
 
           {session === 3 && (
                 <div className="space-y-4 h-[420px]">
-                  <h2 className="text-2xl font-bold mb-6 text-gray-800">Session 3: Academic Details</h2>
+                  <h2 className="mb-6 text-2xl font-bold text-gray-800">Session 3: Academic Details</h2>
               <select
                 name="branch"
                 value={formData.branch}
@@ -341,7 +341,7 @@ const AlumniSignup = () => {
                 <option value="No">No</option>
               </select>
               <div className="mt-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block mb-2 text-sm font-medium text-gray-700">
                   Upload Photo
                 </label>
                 <input
@@ -356,7 +356,7 @@ const AlumniSignup = () => {
               </div>
               <button
                 onClick={handleSubmit}
-                className="bg-gradient-to-r from-white via-blue-400 to-purple-600 border-2 border-black  hover:bg-green-600 text-black px-6 py-3 mt-6 rounded w-full transition-colors focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-6 py-3 mt-6 text-black transition-colors border-2 border-black rounded bg-gradient-to-r from-white via-blue-400 to-purple-600 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
               >
                 Submit
               </button>

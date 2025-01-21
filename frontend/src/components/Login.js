@@ -36,20 +36,20 @@ const Login = () => {
 
   return (
     <div
-      className="min-h-screen w-full flex items-center justify-center bg-cover bg-center"
+      className="flex items-center justify-center w-full min-h-screen bg-center bg-cover"
       style={{
         backgroundImage: `url(${BG})`, // Using the imported background image
         backgroundSize: "cover", // Ensures the background image covers the whole screen
         backgroundPosition: "center", // Centers the background image
       }}
     >
-      <div className="bg-white/40 p-8 rounded-lg shadow-lg w-full max-w-lg">
+      <div className="w-full max-w-lg p-8 rounded-lg shadow-lg bg-white/40">
         {/* Header with JEC Logo */}
         <div className="w-full mb-6">
           <img
             src={JEC}
             alt="JEC Logo"
-            className="w-full h-20 object-contain"
+            className="object-contain w-full h-20"
             style={{
               objectFit: "cover",
               objectPosition: "center",
@@ -57,7 +57,7 @@ const Login = () => {
           />
         </div>
 
-        <h2 className="text-3xl font-bold mb-6 text-gray-800 text-center">
+        <h2 className="mb-6 text-3xl font-bold text-center text-gray-800">
           Login
         </h2>
 
@@ -69,7 +69,7 @@ const Login = () => {
             value={formData.email}
             onChange={handleInputChange}
             placeholder="Email"
-            className="w-full mb-4 p-3 border-2 border-black rounded bg-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 mb-4 border-2 border-black rounded bg-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             type="password"
@@ -77,7 +77,7 @@ const Login = () => {
             value={formData.password}
             onChange={handleInputChange}
             placeholder="Password"
-            className="w-full mb-4 p-3 border-2 border-black rounded bg-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 mb-4 border-2 border-black rounded bg-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             type="text"
@@ -85,20 +85,20 @@ const Login = () => {
             value={formData.regNumber}
             onChange={handleInputChange}
             placeholder="University Register Number"
-            className="w-full mb-4 p-3 border-2 border-black rounded bg-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 mb-4 border-2 border-black rounded bg-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {errorMessage && (
-            <p className="text-red-500 text-center mb-4">{errorMessage}</p>
+            <p className="mb-4 text-center text-red-500">{errorMessage}</p>
           )}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-blue-400 to-purple-600 text-white px-6 py-3 rounded w-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-6 py-3 text-white transition-colors rounded bg-gradient-to-r from-blue-400 to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Login
           </button>
         </form>
 
-        <p className="text-center mt-4 text-blue-500">
+        <p className="mt-4 text-center text-blue-500">
           Don't have an account?{" "}
           <button onClick={() => navigate("/signup")} className="underline">
             Sign Up
