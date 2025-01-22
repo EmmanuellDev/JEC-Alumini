@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // Track loading state
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,20 +16,19 @@ const Dashboard = () => {
       return;
     }
 
-    console.log("Token from localStorage:", token);
-
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/dashboard", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        console.log("API Response:", response.data); // Debug log
+        const response = await axios.get(
+          "http://localhost:5000/api/dashboard",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setUserData(response.data);
         setError(null);
-        setLoading(false); // Data is fetched, no longer loading
+        setLoading(false);
       } catch (error) {
-        console.error("Error fetching dashboard data:", error);
-        setLoading(false); // Stop loading on error
+        setLoading(false);
         if (error.response?.status === 403) {
           localStorage.removeItem("token");
           navigate("/login");
@@ -51,30 +50,34 @@ const Dashboard = () => {
   }
 
   if (error) {
-    return <div className="p-4 text-red-500 error">{error}</div>;
+    return <div className="p-4 text-red-500">{error}</div>;
   }
 
   return (
-    <div className="p-6 bg-gray-100 rounded-md shadow-md dashboard">
-      <h1 className="mb-4 text-2xl font-semibold">
+    <div className="p-6 bg-gray-100">
+      <h1 className="mb-6 text-2xl font-bold text-gray-800">
         Welcome, {userData.firstName} {userData.lastName}
       </h1>
-      <div className="user-info">
+      <div className="space-y-4 text-lg">
         <p>
-          <strong className="font-medium">Email:</strong> {userData.email}
+          <strong className="font-semibold text-gray-600">Email:</strong>{" "}
+          {userData.email}
         </p>
         <p>
-          <strong className="font-medium">Registration Number:</strong>{" "}
+          <strong className="font-semibold text-gray-600">
+            Registration Number:
+          </strong>{" "}
           {userData.regNumber}
         </p>
         <p>
-          <strong className="font-medium">Mobile Number:</strong>{" "}
+          <strong className="font-semibold text-gray-600">
+            Mobile Number:
+          </strong>{" "}
           {userData.mobile}
         </p>
-        {/* ... rest of your component ... */}
       </div>
       <button
-        className="mt-4 px-4 py-2 bg-red-500 text-white rounded-md"
+        className="px-4 py-2 mt-6 text-white bg-red-500 rounded-md hover:bg-red-600"
         onClick={handleLogout}
       >
         Logout
