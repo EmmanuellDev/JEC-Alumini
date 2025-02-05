@@ -7,14 +7,14 @@ const NavItem = ({ icon: Icon, label, active, onClick, className }) => (
   <li>
     <button
       onClick={onClick}
-      className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
+      className={`w-full flex items-center  space-x-5 px-4 py-3 rounded-lg transition-all ${
         active 
-          ? 'bg-indigo-50 text-indigo-600'
-          : 'text-gray-600 hover:bg-gray-50'
+          ? 'bg-teal-500 text-white'
+          : 'text-black hover:bg-teal-100'
       } ${className}`}
     >
-      <Icon className={`w-5 h-5 ${active ? 'text-indigo-600' : 'text-gray-400'}`} />
-      <span className="font-medium">{label}</span>
+      <Icon className={`w-8 h-8 ${active ? 'text-white' : 'text-gray-600'}`} />
+      <span className="font-medium text-xl rye-regular">{label}</span>
     </button>
   </li>
 );
@@ -29,14 +29,14 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-64 bg-white shadow-xl border-r border-gray-100 fixed left-0 top-0 h-full flex flex-col">
+    <nav className="w-64 bg-white/60 shadow-xl border-r border-gray-200 fixed left-0 top-0 h-full flex flex-col">
       {/* Logo Section */}
       <div className="px-6 py-8">
-        <h1 className="text-2xl font-bold text-indigo-600">JEC</h1>
+        <h1 className="text-4xl font-bold text-black text-center kumar-one-regular">JEC</h1>
       </div>
 
       {/* Navigation Items */}
-      <div className="flex-1 px-4">
+      <div className="flex-1 rye-regular px-4">
         <ul className="space-y-2">
           <NavItem 
             icon={MdDashboard} 
@@ -71,7 +71,7 @@ const Navbar = () => {
           icon={FiLogOut}
           label="Log Out"
           onClick={handleLogout}
-          className="text-red-500 hover:bg-red-50"
+          className="text-red-500 hover:bg-red-200"
         />
       </div>
     </nav>

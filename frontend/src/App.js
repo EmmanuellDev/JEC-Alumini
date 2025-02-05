@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import "./App.css"
+import Donate from './components/Donate';
+import PayHistory from './components/PayHistory';
+import Settings from './components/Settings';
 
 function App() {
   return (
@@ -13,6 +17,9 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/donate" element={<Donate />} />
+          <Route path="/payments" element={<PayHistory />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
     </Router>
