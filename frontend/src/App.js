@@ -11,7 +11,7 @@ import Settings from './components/Settings';
 function App() {
   return (
     <Router>
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className=" min-h-screen bg-gray-100">
         <Routes>
           <Route path="/" element={<Navigate to="/signup" />} />
           <Route path="/signup" element={<Signup />} />

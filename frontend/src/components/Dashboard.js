@@ -52,10 +52,9 @@ const Dashboard = () => {
   return (
     <div className="flex min-h-screen bg-gray-100">
       <Navbar />
-
       {/* Main Content */}
-      <main className="flex-1 p-8">
-        <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-8 border border-gray-200 w-full">
+      <main className="flex-1 h-[100%">
+        <div className="max-w-[88rem] ml-[15%] bg-white shadow-lg rounded-xl p-8 border border-gray-200 w-full">
           {/* Welcome Message */}
           <h1 className="text-2xl font-bold text-teal-600 mb-6 ml-4">{welcomeMessage}</h1>
 

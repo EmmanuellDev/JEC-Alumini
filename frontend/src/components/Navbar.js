@@ -29,7 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-64 bg-white/60 shadow-xl border-r border-gray-200 fixed left-0 top-0 h-full flex flex-col">
+    <nav className="w-64 bg-white z-20 shadow-xl border-r border-gray-200 fixed left-0 top-0 h-full flex flex-col">
       {/* Logo Section */}
       <div className="px-6 py-8">
         <h1 className="text-4xl font-bold text-black text-center kumar-one-regular">JEC</h1>
