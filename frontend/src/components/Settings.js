@@ -77,11 +77,11 @@ const Settings = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       <Navbar />
-      <div className="flex-1 p-8 min-w-[10%] ml-[15%]">
+      <div className="flex-1 min-w-[10%] ml-[15%]">
         <div className="bg-white shadow-xl rounded-lg p-8 border border-gray-200">
           {/* Header Section */}
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold text-teal-600">Account Settings</h1>
+            <h1 className="text-3xl font-bold text-teal-600 kumar-one-regular">Account Settings</h1>
             {!isEditing ? (
               <button 
                 onClick={() => setIsEditing(true)}
@@ -147,7 +147,7 @@ const InputField = ({ label, name, value, onChange, disabled, type = "text", ico
   <div className="flex flex-col">
     <label className="font-semibold text-gray-700">{label}</label>
     <div className="relative">
-      <span className="absolute left-3 top-3 text-gray-500">{icon}</span>
+      <span className="absolute left-3 top-3 text-black">{icon}</span>
       <input 
         type={type} 
         name={name} 
@@ -165,7 +165,7 @@ const Dropdown = ({ label, name, value, onChange, options, disabled, icon }) => 
   <div className="flex flex-col">
     <label className="font-semibold text-gray-700">{label}</label>
     <div className="relative">
-      <span className="absolute left-3 top-3 text-gray-500">{icon}</span>
+      <span className="absolute left-3 top-3 text-black">{icon}</span>
       <select name={name} value={value} onChange={onChange} disabled={disabled} className="w-full pl-10 p-3 border border-gray-300 rounded-md focus:ring focus:ring-teal-400">
         {options.map((option) => <option key={option} value={option}>{option}</option>)}
       </select>

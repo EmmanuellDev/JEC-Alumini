@@ -1,6 +1,8 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { MdDashboard, MdOutlineVolunteerActivism, MdPayment } from 'react-icons/md';
+import { MdDashboard, MdOutlineVolunteerActivism } from 'react-icons/md';
+import { FaRegIdCard } from "react-icons/fa6";
+import { BsCashCoin } from "react-icons/bs";
 import { FiSettings, FiLogOut } from 'react-icons/fi';
 
 const NavItem = ({ icon: Icon, label, active, onClick, className }) => (
@@ -51,10 +53,16 @@ const Navbar = () => {
             onClick={() => navigate("/donate")}
           />
           <NavItem
-            icon={MdPayment}
+            icon={BsCashCoin}
             label="Payments"
             active={location.pathname === '/payments'}
             onClick={() => navigate("/payments")}
+          />
+          <NavItem
+            icon={FaRegIdCard}
+            label="Get e-ID"
+            active={location.pathname === '/your-id'}
+            onClick={() => navigate("/your-id")}
           />
           <NavItem
             icon={FiSettings}
