@@ -68,14 +68,6 @@ export default function GenerateID() {
 
             <div className="px-6 pb-6">
               <div className="space-y-4">
-                <input
-                  type="text"
-                  value={userId}
-                  onChange={(e) => setUserId(e.target.value)}
-                  placeholder="Enter Your User ID"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  disabled={loading}
-                />
 
                 {error && <p className="text-sm text-red-500">{error}</p>}
 

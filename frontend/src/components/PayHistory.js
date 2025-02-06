@@ -105,17 +105,17 @@ export default function PaymentHistory() {
         <div className="max-w-[100rem]">
           <div className="bg-blue-500 rounded-lg">
             <div className="px-6 py-4 border-gray-300">
-              <h2 className="text-3xl font-bold rye-regular text-white">
+              <h2 className="text-3xl text-center font-bold rye-regular text-white">
                 Payment History
               </h2>
-              <p className="text-md rye-regular text-white mt-1">
+              <p className="text-sm text-center rye-regular text-white mt-1">
                 View all your transaction details
               </p>
             </div>
 
             <div className="">
               <table className="w-full">
-                <thead className="bg-gray-50">
+                <thead className="bg-white border-2 border-black">
                   <tr>
                     <th className="px-6 py-3 text-left text-lg font-medium text-gray-500 uppercase tracking-wider">
                       Date & Time

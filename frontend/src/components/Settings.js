@@ -81,7 +81,7 @@ const Settings = () => {
         <div className="bg-white shadow-xl rounded-lg p-8 border border-gray-200">
           {/* Header Section */}
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold text-teal-600 kumar-one-regular">Account Settings</h1>
+            <h1 className="text-3xl font-bold text-blue-600 kumar-one-regular">Account Settings</h1>
             {!isEditing ? (
               <button 
                 onClick={() => setIsEditing(true)}
@@ -92,7 +92,7 @@ const Settings = () => {
             ) : (
               <button 
                 onClick={handleSave}
-                className="bg-green-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-green-600 transition"
+                className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-200 transition"
               >
                 Save
               </button>
@@ -105,7 +105,7 @@ const Settings = () => {
               <img
                 src={userData.profilePic !== "Enter your details..." ? userData.profilePic : "https://via.placeholder.com/120"}
                 alt="Profile"
-                className="w-32 h-32 rounded-full border-4 border-teal-500 object-cover shadow-md"
+                className="w-32 h-32 rounded-full border-4 border-blue-500 object-cover shadow-md"
               />
             </label>
             {isEditing && <input type="file" id="profilePic" className="hidden" onChange={(e) => handleChange(e)} />}

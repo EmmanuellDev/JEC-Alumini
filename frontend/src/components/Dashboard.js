@@ -56,14 +56,14 @@ const Dashboard = () => {
       <main className="flex-1">
         <div className="max-w-[90rem] ml-[15%] min-h-[48rem] bg-white shadow-lg rounded-xl p-8 border border-gray-200 w-full">
           {/* Welcome Message */}
-          <h1 className="text-2xl font-bold text-teal-600 mb-6 ml-4">{welcomeMessage}</h1>
+          <h1 className="text-2xl font-bold text-blue-600 mb-6 ml-4">{welcomeMessage}</h1>
 
           {/* Profile Section */}
           <div className="flex items-center space-x-6 border-b pb-6">
             <img
               src={userData.profilePic || "https://via.placeholder.com/120"}
               alt="Profile"
-              className="w-32 h-32 rounded-full border-4 border-teal-500"
+              className="w-32 h-32 rounded-full border-4 border-blue-500"
             />
             <div>
               <h2 className="text-xl font-bold text-gray-800">{userData.firstName} {userData.lastName}</h2>
@@ -127,7 +127,7 @@ const Dashboard = () => {
 
 // Reusable Info Card Component
 const InfoCard = ({ label, value }) => (
-  <div className="p-4 bg-teal-100 border-l-4 border-teal-500 rounded-lg">
+  <div className="p-4 bg-blue-100 border-l-4 border-blue-500 rounded-lg">
     <p className="text-gray-600 font-semibold">{label}</p>
     <p className="text-gray-800 text-lg">{value}</p>
   </div>
