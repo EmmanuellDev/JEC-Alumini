@@ -11,8 +11,8 @@ const NavItem = ({ icon: Icon, label, active, onClick, className }) => (
       onClick={onClick}
       className={`w-full flex items-center  space-x-5 px-4 py-3 rounded-lg transition-all ${
         active 
-          ? 'bg-teal-500 text-white'
-          : 'text-black hover:bg-teal-100'
+          ? 'bg-blue-600 text-white'
+          : 'text-black hover:bg-blue-100'
       } ${className}`}
     >
       <Icon className={`w-8 h-8 ${active ? 'text-white' : 'text-gray-600'}`} />
@@ -79,7 +79,7 @@ const Navbar = () => {
           icon={FiLogOut}
           label="Log Out"
           onClick={handleLogout}
-          className="text-red-500 hover:bg-red-200"
+          className="text-red-500 hover:bg-red-100"
         />
       </div>
     </nav>
